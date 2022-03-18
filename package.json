@@ -1,0 +1,12 @@
+{
+  "name": "decision-helper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/kaimikan/decision-helper.git",
+  "author": "kaimikan <oihic@protonmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1"
+  }
+}
