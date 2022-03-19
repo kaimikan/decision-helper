@@ -1,64 +1,65 @@
-// JSX = js xml
-
-const app = {
-  title: "Decision Helper",
-  subtitle: "Helping YOU Take Action",
-  options: []
-};
-
-const onFormSubmit = (e) => {
-  // prevents page refresh
-  e.preventDefault();
-  const option = e.target.elements.option.value;
-  // if won't trigger if option is an empty string
-  if (option) {
-    app.options.push(option);
-    e.target.elements.option.value = "";
-    renderDecisionApp();
+class DecisionHelperApp extends React.Component {
+  render() {
+    const title = "Decision Helper";
+    const subtitle = "get some assistance with decision making";
+    const options = ["option 1", "option 2", "option 3"];
+    return (
+      <div>
+        <Header title={title} subtitle={subtitle} />
+        <Action />
+        <Options options={options} />
+        <AddOption />
+      </div>
+    );
   }
-};
+}
 
-const onWipeOptions = () => {
-  app.options = [];
-  renderDecisionApp();
-};
+//uppercase class first letter is mandatory when extending React Component
+class Header extends React.Component {
+  // render must be called when we extend React Component
+  render() {
+    console.log(this.props);
+    return (
+      <div>
+        <h1>{this.props.title}</h1>
+        <h2>{this.props.subtitle}</h2>
+      </div>
+    );
+  }
+}
 
-const onMakeDecision = () => {
-  const randomNum = Math.floor(Math.random() * app.options.length);
-  const option = app.options[randomNum];
+class Action extends React.Component {
+  render() {
+    return (
+      <div>
+        <button>Suggest Action</button>
+      </div>
+    );
+  }
+}
 
-  alert(option);
-};
+class Options extends React.Component {
+  render() {
+    return (
+      <div>
+        {this.props.options.map((option) => (
+          <Option key={option} optionText={option}></Option>
+        ))}
+      </div>
+    );
+  }
+}
 
-const appRoot = document.getElementById("app");
+class Option extends React.Component {
+  render() {
+    return <p>{this.props.optionText}</p>;
+  }
+}
 
-const renderDecisionApp = () => {
-  const template = (
-    <div>
-      <h1>{app.title}</h1>
-      {/* onWipeOptions instead of onWipeOptions() to make a reference instead of a call */}
-      <button onClick={onWipeOptions}>Wipe Options</button>
-      {app.subtitle && app.subtitle.length > 0 && <p>{app.subtitle}</p>}
-      <button disabled={app.options.length == 0} onClick={onMakeDecision}>
-        Pick Option
-      </button>
-      {
-        <ol>
-          {" "}
-          {app.options.map((option) => (
-            <li key={option}>{option}</li>
-          ))}{" "}
-        </ol>
-      }
+class AddOption extends React.Component {
+  render() {
+    return <div>AddOption</div>;
+  }
+}
 
-      <form onSubmit={onFormSubmit}>
-        <input type="text" name="option" />
-        <button>Add Option</button>
-      </form>
-    </div>
-  );
-
-  ReactDOM.render(template, appRoot);
-};
-
-renderDecisionApp();
+ReactDOM.render(<DecisionHelperApp />, document.getElementById("app"));
