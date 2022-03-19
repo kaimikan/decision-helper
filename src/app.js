@@ -1,6 +1,6 @@
 // JSX = js xml
 
-var app = {
+const app = {
   title: "Decision Helper",
   subtitle: "Helping YOU Take Action",
   options: ["Option 1", "Option 2"]
@@ -8,13 +8,7 @@ var app = {
 
 function getOptions(options) {
   /*
-  FIXME was trying to do smth like this
-  var optionsListJSX = "";
-  if (options.length > 0)
-    for (var i = 0; i <= options.length; i++)
-      optionsListJSX += <li>{options[i]}</li>;
-  var optionsFullJSX = <ol>{optionsListJSX}</ol>;
-  return { optionsFullJSX };
+  FIXME Warning: Each child in an array or iterator should have a unique "key" prop.
   */
   if (options)
     return (
@@ -26,7 +20,7 @@ function getOptions(options) {
     );
 }
 
-var template = (
+const template = (
   <div>
     <h1>{app.title}</h1>
     {app.subtitle && app.subtitle.length > 0 && <p>{app.subtitle}</p>}
@@ -35,7 +29,7 @@ var template = (
 );
 
 // second template with comments
-var user = {
+const user = {
   name: "Kai",
   age: 22,
   location: "Deventer"
@@ -47,7 +41,7 @@ function getLocation(location) {
   //return undefined;
 }
 
-var templateCredentials = (
+const templateCredentials = (
   <div>
     <h1>
       {user.name /* this is assumed !== undefined*/
@@ -59,6 +53,6 @@ var templateCredentials = (
   </div>
 );
 
-var appRoot = document.getElementById("app");
+const appRoot = document.getElementById("app");
 
 ReactDOM.render(template, appRoot);
