@@ -6,16 +6,6 @@ const app = {
   options: []
 };
 
-function getOptions(options) {
-  return (
-    <ol>
-      {options.map((option) => (
-        <li key={option}>{option}</li>
-      ))}
-    </ol>
-  );
-}
-
 const onFormSubmit = (e) => {
   // prevents page refresh
   e.preventDefault();
@@ -33,6 +23,13 @@ const onWipeOptions = () => {
   renderDecisionApp();
 };
 
+const onMakeDecision = () => {
+  const randomNum = Math.floor(Math.random() * app.options.length);
+  const option = app.options[randomNum];
+
+  alert(option);
+};
+
 const appRoot = document.getElementById("app");
 
 const renderDecisionApp = () => {
@@ -42,8 +39,17 @@ const renderDecisionApp = () => {
       {/* onWipeOptions instead of onWipeOptions() to make a reference instead of a call */}
       <button onClick={onWipeOptions}>Wipe Options</button>
       {app.subtitle && app.subtitle.length > 0 && <p>{app.subtitle}</p>}
-      {getOptions(app.options)}
-      {/* or this <ol> {app.options.map((option) => (<li key={option}>{option}</li>))} </ol> */}
+      <button disabled={app.options.length == 0} onClick={onMakeDecision}>
+        Pick Option
+      </button>
+      {
+        <ol>
+          {" "}
+          {app.options.map((option) => (
+            <li key={option}>{option}</li>
+          ))}{" "}
+        </ol>
+      }
 
       <form onSubmit={onFormSubmit}>
         <input type="text" name="option" />
