@@ -1,6 +1,4 @@
-"use strict";
-
-/*const square = */function square(x) {
+/*const square = */ function square(x) {
   return x * x;
 }
 console.log(square(3));
@@ -10,9 +8,7 @@ console.log(square(3));
 // };
 
 // we do not need to explicitly use return in arrow functions
-var squareArrow = function squareArrow(x) {
-  return x * x;
-};
+const squareArrow = (x) => x * x;
 
 console.log(squareArrow(9));
 
@@ -20,9 +16,7 @@ console.log(squareArrow(9));
 //   return fullName.split(" ")[0];
 // };
 
-var getFirstName = function getFirstName(fullName) {
-  return fullName.split(" ")[0];
-};
+const getFirstName = (fullName) => fullName.split(" ")[0];
 
 console.log(getFirstName("Mike Wazowski"));
 
@@ -30,27 +24,25 @@ console.log(getFirstName("Mike Wazowski"));
 
 // argument object - no longer bound with arrow functions
 
-var add = function add(a, b) {
+const add = function (a, b) {
   console.log(arguments);
   return a + b;
 };
 console.log(add(55, 1, 1001));
 
-var addArrows = function addArrows(a, b) {
+const addArrows = (a, b) => {
   // not defined in arrows functions console.log(arguments);
   return a + b;
 };
 
 // this keyword - no longer bound
 
-var user = {
+const user = {
   name: "Kai",
   cities: ["Vratsa", "Deventer"],
-  printPlacesLived: function printPlacesLived() {
-    var _this = this;
-
+  printPlacesLived: function () {
     // workaround for scope problem in forEach
-    var that = this;
+    const that = this;
     console.log(this.name);
     console.log(this.cities);
 
@@ -61,8 +53,8 @@ var user = {
     });
 
     // #2 with arrow the scope is 1 level up
-    this.cities.forEach(function (city) {
-      console.log(_this.name + " has lived in " + city);
+    this.cities.forEach((city) => {
+      console.log(this.name + " has lived in " + city);
     });
   },
   // // not proper because of rule #2
@@ -71,34 +63,24 @@ var user = {
   //     console.log(this.name + " has lived in " + city);
   //   });
   // },
-  printPlacesLivedES6: function printPlacesLivedES6() {
-    var _this2 = this;
-
-    this.cities.forEach(function (city) {
-      console.log(_this2.name + " has lived in " + city);
+  printPlacesLivedES6() {
+    this.cities.forEach((city) => {
+      console.log(this.name + " has lived in " + city);
     });
   },
-  printPlacesLivedES6Map: function printPlacesLivedES6Map() {
-    var _this3 = this;
-
-    return this.cities.map(function (city) {
-      return _this3.name + " has lived in " + city;
-    });
+  printPlacesLivedES6Map() {
+    return this.cities.map((city) => this.name + " has lived in " + city);
   }
 };
 //user.printPlacesLived();
 //user.printPlacesLivedES6();
 console.log(user.printPlacesLivedES6Map());
 
-var multiplier = {
+const multiplier = {
   numbers: [1, 2, 3],
   multiplyBy: 5,
-  multiply: function multiply() {
-    var _this4 = this;
-
-    return this.numbers.map(function (number) {
-      return _this4.multiplyBy * number;
-    });
+  multiply() {
+    return this.numbers.map((number) => this.multiplyBy * number);
   }
 };
 
