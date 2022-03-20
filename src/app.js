@@ -60,53 +60,39 @@ class DecisionHelperApp extends React.Component {
   }
 }
 
-//uppercase class first letter is mandatory when extending React Component
-class Header extends React.Component {
-  // render must be called when we extend React Component
-  render() {
-    console.log(this.props);
-    return (
-      <div>
-        <h1>{this.props.title}</h1>
-        <h2>{this.props.subtitle}</h2>
-      </div>
-    );
-  }
-}
+const Header = (props) => {
+  return (
+    <div>
+      <h1>{props.title}</h1>
+      <h2>{props.subtitle}</h2>
+    </div>
+  );
+};
 
-class Action extends React.Component {
-  render() {
-    return (
-      <div>
-        <button
-          disabled={!this.props.hasOptions}
-          onClick={this.props.handlePick}
-        >
-          Suggest Action
-        </button>
-      </div>
-    );
-  }
-}
+const Action = (props) => {
+  return (
+    <div>
+      <button disabled={!props.hasOptions} onClick={props.handlePick}>
+        Suggest Action
+      </button>
+    </div>
+  );
+};
 
-class Options extends React.Component {
-  render() {
-    return (
-      <div>
-        <button onClick={this.props.handleDeleteOptions}>Remove All</button>
-        {this.props.options.map((option) => (
-          <Option key={option} optionText={option}></Option>
-        ))}
-      </div>
-    );
-  }
-}
+const Options = (props) => {
+  return (
+    <div>
+      <button onClick={props.handleDeleteOptions}>Remove All</button>
+      {props.options.map((option) => (
+        <Option key={option} optionText={option}></Option>
+      ))}
+    </div>
+  );
+};
 
-class Option extends React.Component {
-  render() {
-    return <p>{this.props.optionText}</p>;
-  }
-}
+const Option = (props) => {
+  return <p>{props.optionText}</p>;
+};
 
 class AddOption extends React.Component {
   constructor(props) {
@@ -144,5 +130,19 @@ class AddOption extends React.Component {
     );
   }
 }
+
+// // Stateless Functional Component
+// // faster than class based components
+// // used for simple sections which don't require state to manage
+// // good rule of thumb if a class only has a render() method convert it to a stateless func comp
+// const User = (props) => {
+//   return (
+//     <div>
+//       <p>Name: {props.name}</p>
+//       <p>Age: {props.age}</p>
+//     </div>
+//   );
+// };
+// ReactDOM.render(<User name="Kai" age={22} />, document.getElementById("app"));
 
 ReactDOM.render(<DecisionHelperApp />, document.getElementById("app"));
