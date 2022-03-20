@@ -6,10 +6,29 @@ class Counter extends React.Component {
     this.handleRemoveOne = this.handleRemoveOne.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.state = {
-      count: props.count,
+      count: 0,
       name: "Our State Name Example"
     };
   }
+
+  componentDidMount() {
+    try {
+      const stringCount = localStorage.getItem("count");
+      const count = parseInt(stringCount);
+
+      if (!isNaN(count)) this.setState(() => ({ count })); // when we have count: count we can just type count (same name)
+    } catch (e) {
+      // nothing
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.count !== this.state.count) {
+      localStorage.setItem("count", this.state.count);
+    }
+  }
+
+  componentWillUnmount() {}
 
   handleAddOne() {
     // this is used to change value and render at the same time
@@ -60,9 +79,5 @@ class Counter extends React.Component {
   }
 }
 
-Counter.defaultProps = {
-  count: 0
-};
-
 // if we don't provide value we default to 0
-ReactDOM.render(<Counter count={-10} />, document.getElementById("app"));
+ReactDOM.render(<Counter />, document.getElementById("app"));

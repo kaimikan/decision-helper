@@ -8,9 +8,35 @@ class DecisionHelperApp extends React.Component {
     this.handleDeleteOption = this.handleDeleteOption.bind(this);
 
     this.state = {
-      options: props.options
+      options: []
     };
   }
+
+  // lifecycle methods only available in class React.Component extending elements
+  componentDidMount() {
+    try {
+      const json = localStorage.getItem("options");
+      const options = JSON.parse(json);
+
+      if (options) this.setState(() => ({ options }));
+    } catch (e) {
+      // Do nothing at all
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // we have the if cause the update triggers if options [] is replaced with []
+    if (prevState.options.length !== this.state.options.length) {
+      const json = JSON.stringify(this.state.options);
+      localStorage.setItem("options", json);
+    }
+  }
+
+  componentWillUnmount() {
+    console.log("component will unmount");
+  }
+
+  // localStorage only works with string data, to save an array we use json (JSON.stringify -> JSON.parse)
 
   handleDeleteOptions() {
     // this.setState(() => {
@@ -75,10 +101,6 @@ class DecisionHelperApp extends React.Component {
   }
 }
 
-DecisionHelperApp.defaultProps = {
-  options: []
-};
-
 const Header = (props) => {
   return (
     <div>
@@ -106,6 +128,7 @@ const Options = (props) => {
   return (
     <div>
       <button onClick={props.handleDeleteOptions}>Remove All</button>
+      {props.options.length === 0 && <p>Add an option to get started</p>}
       {props.options.map((option) => (
         <Option
           key={option}
@@ -146,7 +169,6 @@ class AddOption extends React.Component {
   handleAddOption(e) {
     e.preventDefault();
     const option = e.target.elements.option.value.trim();
-    e.target.elements.option.value = "";
     const error = this.props.handleAddOption(option);
 
     // this.setState(() => {
@@ -156,6 +178,8 @@ class AddOption extends React.Component {
     // });
 
     this.setState(() => ({ error }));
+
+    if (!error) e.target.elements.option.value = "";
   }
 
   render() {
@@ -185,7 +209,4 @@ class AddOption extends React.Component {
 // };
 // ReactDOM.render(<User name="Kai" age={22} />, document.getElementById("app"));
 
-ReactDOM.render(
-  <DecisionHelperApp options={["programming", "workout", "crafting"]} />,
-  document.getElementById("app")
-);
+ReactDOM.render(<DecisionHelperApp />, document.getElementById("app"));
