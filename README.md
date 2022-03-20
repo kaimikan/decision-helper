@@ -10,12 +10,8 @@ to create node_modules if first time cloning
 yarn install
 ```
 
-open 2 terminals inside the decision-helper folder
+open a terminal inside the decision-helper folder and type
 
 ```
-yarn serve
-```
-
-```
-yarn build
+yarn run dev-build
 ```
