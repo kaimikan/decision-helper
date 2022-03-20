@@ -1,15 +1,6 @@
-//import "./utils.js";
-import subtractFromUtils, { square, add } from "./utils.js"; // { square } is from the export in utils.js
-// default export is outside of brackets or
-// import subtract from "./utils.js"; // since it's default name does not have to match
+import React from "react";
+import ReactDOM from "react-dom";
 
-import isSenior, { isAdult, canDrink } from "./person.js";
+const template = <p>this is JSX from Webpack</p>;
 
-console.log("app.js is running!");
-console.log(square(5));
-console.log(add(230, 23));
-console.log(subtractFromUtils(19, 2));
-
-console.log(isAdult(5));
-console.log(canDrink(23));
-console.log(isSenior(65));
+ReactDOM.render(template, document.getElementById("app"));
