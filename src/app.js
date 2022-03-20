@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import DecisionHelperApp from "./components/DecisionHelperApp";
 
-const template = <p>this is JSX from Webpack</p>;
-
-ReactDOM.render(template, document.getElementById("app"));
+ReactDOM.render(<DecisionHelperApp />, document.getElementById("app"));
