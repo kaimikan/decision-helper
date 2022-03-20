@@ -13,9 +13,9 @@ yarn install
 open 2 terminals inside the decision-helper folder
 
 ```
-live-server public
+yarn serve
 ```
 
 ```
-babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch
+yarn build
 ```

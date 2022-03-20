@@ -5,8 +5,14 @@
   "repository": "https://github.com/kaimikan/decision-helper.git",
   "author": "kaimikan <oihic@protonmail.com>",
   "license": "MIT",
+  "scripts": {
+    "serve": "live-server public/",
+    "build": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch"
+  },
   "dependencies": {
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1"
+    "babel-cli": "6.24.1",
+    "babel-preset-env": "1.5.2",
+    "babel-preset-react": "6.24.1",
+    "live-server": "1.2.0"
   }
 }
