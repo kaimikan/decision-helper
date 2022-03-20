@@ -5,6 +5,7 @@ class DecisionHelperApp extends React.Component {
     this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
     this.handlePick = this.handlePick.bind(this);
     this.handleAddOption = this.handleAddOption.bind(this);
+    this.handleDeleteOption = this.handleDeleteOption.bind(this);
 
     this.state = {
       options: props.options
@@ -12,11 +13,20 @@ class DecisionHelperApp extends React.Component {
   }
 
   handleDeleteOptions() {
-    this.setState(() => {
-      return {
-        options: []
-      };
-    });
+    // this.setState(() => {
+    //   return {
+    //     options: []
+    //   };
+    // });
+
+    // notice the ({}) brackets when returning an object (otherwise it would be seen as an empty method)
+    this.setState(() => ({ options: [] }));
+  }
+
+  handleDeleteOption(optionToRemove) {
+    this.setState((prevState) => ({
+      options: prevState.options.filter((option) => optionToRemove !== option)
+    }));
   }
 
   handlePick() {
@@ -32,12 +42,16 @@ class DecisionHelperApp extends React.Component {
       return "This option already exists";
     }
 
-    this.setState((prevState) => {
-      return {
-        // concat creates a third array with the new element instead of changing the state or prevState one
-        options: prevState.options.concat(option)
-      };
-    });
+    // this.setState((prevState) => {
+    //   return {
+    //     // concat creates a third array with the new element instead of changing the state or prevState one
+    //     options: prevState.options.concat(option)
+    //   };
+    // });
+
+    this.setState((prevState) => ({
+      options: prevState.options.concat(option)
+    }));
   }
 
   render() {
@@ -53,6 +67,7 @@ class DecisionHelperApp extends React.Component {
         <Options
           options={this.state.options}
           handleDeleteOptions={this.handleDeleteOptions}
+          handleDeleteOption={this.handleDeleteOption}
         />
         <AddOption handleAddOption={this.handleAddOption} />
       </div>
@@ -92,14 +107,29 @@ const Options = (props) => {
     <div>
       <button onClick={props.handleDeleteOptions}>Remove All</button>
       {props.options.map((option) => (
-        <Option key={option} optionText={option}></Option>
+        <Option
+          key={option}
+          optionText={option}
+          handleDeleteOption={props.handleDeleteOption}
+        />
       ))}
     </div>
   );
 };
 
 const Option = (props) => {
-  return <p>{props.optionText}</p>;
+  return (
+    <div>
+      {props.optionText}
+      <button
+        onClick={(e) => {
+          props.handleDeleteOption(props.optionText);
+        }}
+      >
+        X
+      </button>
+    </div>
+  );
 };
 
 class AddOption extends React.Component {
@@ -119,11 +149,13 @@ class AddOption extends React.Component {
     e.target.elements.option.value = "";
     const error = this.props.handleAddOption(option);
 
-    this.setState(() => {
-      return {
-        error // error: error
-      };
-    });
+    // this.setState(() => {
+    //   return {
+    //     error // error: error
+    //   };
+    // });
+
+    this.setState(() => ({ error }));
   }
 
   render() {
