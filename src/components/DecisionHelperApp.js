@@ -3,10 +3,12 @@ import AddOption from "./AddOption";
 import Action from "./Action";
 import Header from "./Header";
 import Options from "./Options";
+import OptionModal from "./OptionModal";
 
 export default class DecisionHelperApp extends React.Component {
   state = {
-    options: []
+    options: [],
+    selectedOption: undefined
   };
 
   handleDeleteOptions = () => {
@@ -29,7 +31,15 @@ export default class DecisionHelperApp extends React.Component {
   handlePick = () => {
     const randomNum = Math.floor(Math.random() * this.state.options.length);
     const randomOption = this.state.options[randomNum];
-    alert(randomOption);
+    this.setState(() => ({
+      selectedOption: randomOption
+    }));
+  };
+
+  handleClearSelectedOption = () => {
+    this.setState(() => ({
+      selectedOption: undefined
+    }));
   };
 
   handleAddOption = (option) => {
@@ -93,6 +103,10 @@ export default class DecisionHelperApp extends React.Component {
           handleDeleteOption={this.handleDeleteOption}
         />
         <AddOption handleAddOption={this.handleAddOption} />
+        <OptionModal
+          selectedOption={this.state.selectedOption}
+          handleClearSelectedOption={this.handleClearSelectedOption}
+        />
       </div>
     );
   }
