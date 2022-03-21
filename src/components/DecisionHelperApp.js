@@ -89,10 +89,10 @@ export default class DecisionHelperApp extends React.Component {
 
   render() {
     const title = "Decision Helper";
-    const subtitle = "get some assistance with decision making";
+    const subtitle = "get some help with decision making";
     return (
       <div>
-        <Header title={title} />
+        <Header title={title} subtitle={subtitle} />
         <Action
           hasOptions={this.state.options.length > 0}
           handlePick={this.handlePick}
