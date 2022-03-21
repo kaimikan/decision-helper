@@ -8,7 +8,8 @@ import OptionModal from "./OptionModal";
 export default class DecisionHelperApp extends React.Component {
   state = {
     options: [],
-    selectedOption: undefined
+    selectedOption: undefined,
+    modalOpen: false
   };
 
   handleDeleteOptions = () => {
@@ -32,14 +33,22 @@ export default class DecisionHelperApp extends React.Component {
     const randomNum = Math.floor(Math.random() * this.state.options.length);
     const randomOption = this.state.options[randomNum];
     this.setState(() => ({
-      selectedOption: randomOption
+      selectedOption: randomOption,
+      modalOpen: true
     }));
   };
 
   handleClearSelectedOption = () => {
+    // we do this to keep the selected option on screen long enough to have a smooth transition
     this.setState(() => ({
-      selectedOption: undefined
+      modalOpen: false
     }));
+    setTimeout(
+      function () {
+        this.setState({ selectedOption: undefined });
+      }.bind(this),
+      200
+    );
   };
 
   handleAddOption = (option) => {
@@ -108,6 +117,7 @@ export default class DecisionHelperApp extends React.Component {
           </div>
         </div>
         <OptionModal
+          modalOpen={this.state.modalOpen}
           selectedOption={this.state.selectedOption}
           handleClearSelectedOption={this.handleClearSelectedOption}
         />
