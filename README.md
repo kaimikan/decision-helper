@@ -2,6 +2,8 @@
 
 An app to assist you in making decisions. Following Andrew Mead's React course.
 
+Check out the app [here](https://decision-helper.herokuapp.com/).
+
 ## Setup:
 
 to create node_modules if first time cloning
