@@ -3,15 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/kaimikan/decision-helper.git",
-  "author": "kaimikan <oihic@protonmail.com>",
+  "author": "kaimikan",
   "license": "MIT",
   "scripts": {
     "serve": "live-server public/",
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
     "dev-server": "webpack-dev-server",
-    "start": "node server/server",
-    "heroku-postbuild": "yarn run build:prod"
+    "start": "node server/server"
   },
   "dependencies": {
     "babel-cli": "6.24.1",

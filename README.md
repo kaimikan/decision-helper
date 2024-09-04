@@ -1,8 +1,6 @@
 # decision-helper
 
-An app to assist you in making decisions. Following Andrew Mead's React course.
-
-Check out the app [here](https://decision-helper.herokuapp.com/).
+An app to assist you in making decisions.
 
 ## Setup:
 
@@ -15,5 +13,5 @@ yarn install
 open a terminal inside the decision-helper folder and type
 
 ```
-yarn run dev-build
+yarn run serve
 ```
